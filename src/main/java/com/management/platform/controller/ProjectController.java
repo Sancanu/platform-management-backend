@@ -10,6 +10,7 @@ import java.util.Optional;
 
 
 @RestController()
+@CrossOrigin(origins ="http://localhost:4200/" )
 @RequestMapping(path = "projects")
 public class ProjectController {
     @Autowired
@@ -20,7 +21,7 @@ public class ProjectController {
         return  projectService.getProjects();
     }
     @GetMapping("/{ProjectId}")
-    public Optional<Project> getProject(@PathVariable("ProjectId") Long id){
+    public Project getProject(@PathVariable("ProjectId") Long id){
         return  projectService.getProject(id);
     }
 
@@ -30,6 +31,11 @@ public class ProjectController {
         return Project;
     }
 
+    @PutMapping
+    public Project UpdateProject(@RequestBody Project Project){
+        projectService.saveOrUpdate(Project);
+        return Project;
+    }
     @DeleteMapping ("/{ProjectId}")
     public void deleteProject(@PathVariable("ProjectId") Long id){
         projectService.delete(id);
